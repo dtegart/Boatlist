@@ -22,6 +22,7 @@ model User {
   createdAt   DateTime    @default(now())
 
   credentials Credential[] // Relationship: One user can have many credentials
+  lists       List[]      // Relationship: One user can own many lists
 }
 
 model Credential {
@@ -43,6 +44,9 @@ model List {
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
   items     Item[]
+  ownerId    String    // Foreign key to User
+  onwer      User      @relation(fields: [ownerId], references: [id])
+
 }
 
 model Item {
