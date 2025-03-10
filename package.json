@@ -31,15 +31,26 @@
   "dependencies": {
     "@prisma/adapter-d1": "^6.4.1",
     "@prisma/client": "^6.4.1",
+    "@radix-ui/react-alert-dialog": "^1.1.6",
+    "@radix-ui/react-label": "^2.1.2",
+    "@radix-ui/react-slot": "^1.1.2",
     "@simplewebauthn/browser": "^13.1.0",
     "@simplewebauthn/server": "^13.1.1",
+    "@tailwindcss/vite": "^4.0.12",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.479.0",
     "react": "19.0.0-rc-f2df5694-20240916",
     "react-dom": "19.0.0-rc-f2df5694-20240916",
     "react-server-dom-webpack": "19.0.0-rc-f2df5694-20240916",
-    "redwoodsdk": "0.0.8"
+    "redwoodsdk": "0.0.8",
+    "tailwind-merge": "^3.0.2",
+    "tailwindcss": "^4.0.12",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241112.0",
+    "@types/node": "^22.13.10",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "prisma": "^6.4.1",
