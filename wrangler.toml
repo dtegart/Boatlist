@@ -1,0 +1,28 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "boatlists"
+main = "src/worker.tsx"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+assets = { binding = "ASSETS" }
+
+[observability]
+enabled = true
+
+[durable_objects]
+bindings = [
+  { name = "SESSION_DURABLE_OBJECT", class_name = "SessionDurableObject" }
+]
+
+[vars]
+SECRET_KEY = "_"
+APP_NAME = "boatlists"
+RP_ID = "localhost"
+
+[[migrations]]
+tag = "v1"
+new_classes = [ "SessionDurableObject" ]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "boatlists"
+database_id = "641a2884-4b2d-41c8-bd4c-90a9ad0fd104"
