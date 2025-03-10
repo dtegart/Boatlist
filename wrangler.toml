@@ -14,7 +14,7 @@ bindings = [
 ]
 
 [vars]
-SECRET_KEY = "_"
+SECRET_KEY = "asecret_"
 APP_NAME = "boatlists"
 RP_ID = "localhost"
 
