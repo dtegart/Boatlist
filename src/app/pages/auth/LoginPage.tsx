@@ -1,10 +1,15 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   startAuthentication,
   startRegistration,
 } from "@simplewebauthn/browser";
+import { KeyRound, Loader2, UserPlus } from "lucide-react";
+import { useState, useTransition } from "react";
 import {
   finishPasskeyLogin,
   finishPasskeyRegistration,
@@ -15,29 +20,44 @@ import {
 export function LoginPage() {
   const [username, setUsername] = useState("");
   const [result, setResult] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   const passkeyLogin = async () => {
-    const options = await startPasskeyLogin();
-    const login = await startAuthentication({ optionsJSON: options });
-    const success = await finishPasskeyLogin(login);
+    try {
+      const options = await startPasskeyLogin();
+      const login = await startAuthentication({ optionsJSON: options });
+      const success = await finishPasskeyLogin(login);
 
-    if (!success) {
-      setResult("Login failed");
-    } else {
-      setResult("Login successful!");
+      if (!success) {
+        setResult("Login failed");
+        setIsSuccess(false);
+      } else {
+        setResult("Login successful!");
+        setIsSuccess(true);
+      }
+    } catch (error) {
+      setResult("An error occurred during login");
+      setIsSuccess(false);
     }
   };
 
   const passkeyRegister = async () => {
-    const options = await startPasskeyRegistration(username);
-    const registration = await startRegistration({ optionsJSON: options });
-    const success = await finishPasskeyRegistration(username, registration);
+    try {
+      const options = await startPasskeyRegistration(username);
+      const registration = await startRegistration({ optionsJSON: options });
+      const success = await finishPasskeyRegistration(username, registration);
 
-    if (!success) {
-      setResult("Registration failed");
-    } else {
-      setResult("Registration successful!");
+      if (!success) {
+        setResult("Registration failed");
+        setIsSuccess(false);
+      } else {
+        setResult("Registration successful!");
+        setIsSuccess(true);
+      }
+    } catch (error) {
+      setResult("An error occurred during registration");
+      setIsSuccess(false);
     }
   };
 
@@ -50,20 +70,68 @@ export function LoginPage() {
   };
 
   return (
-    <>
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Username"
-      />
-      <button onClick={handlePerformPasskeyLogin} disabled={isPending}>
-        {isPending ? <>...</> : "Login with passkey"}
-      </button>
-      <button onClick={handlePerformPasskeyRegister} disabled={isPending}>
-        {isPending ? <>...</> : "Register with passkey"}
-      </button>
-      {result && <div>{result}</div>}
-    </>
+    <div className="flex justify-center items-center min-h-screen p-4">
+      <Card className="w-full max-w-md shadow-sm border-muted">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl">Authentication</CardTitle>
+          <CardDescription>
+            Login or register with your passkey
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Username"
+              className="w-full"
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <Button
+              onClick={handlePerformPasskeyLogin}
+              disabled={isPending || !username.trim()}
+              variant="outline"
+              className="w-full"
+            >
+              {isPending ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Please wait
+                </>
+              ) : (
+                <>
+                  <KeyRound className="mr-2 h-4 w-4" /> Login
+                </>
+              )}
+            </Button>
+            <Button
+              onClick={handlePerformPasskeyRegister}
+              disabled={isPending || !username.trim()}
+              className="w-full"
+            >
+              {isPending ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Please wait
+                </>
+              ) : (
+                <>
+                  <UserPlus className="mr-2 h-4 w-4" /> Register
+                </>
+              )}
+            </Button>
+          </div>
+        </CardContent>
+        {result && (
+          <CardFooter>
+            <Alert variant={isSuccess ? "default" : "destructive"} className="w-full">
+              <AlertDescription>{result}</AlertDescription>
+            </Alert>
+          </CardFooter>
+        )}
+      </Card>
+    </div>
   );
 }
