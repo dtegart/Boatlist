@@ -13,6 +13,6 @@ function isAuthenticated({ ctx }: { ctx: Context }) {
   }
 }
 export const listRoutes = [
-  route("/list", [isAuthenticated, Lists]),
+  route("/lists", [isAuthenticated, Lists]),
   route("/:id", [isAuthenticated, List]),
 ];

@@ -14,11 +14,11 @@ export default defineScript(async ({ env }) => {
       username: "dtegart",
     },
   });
-  await db.list.create({
+  /*  await db.list.create({
     data: {
       name: "Med Mooring",
       ownerId: user.id,
     },
-  });
+  }); */
   console.log("🌱 Finished seeding");
 });

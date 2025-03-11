@@ -1,7 +1,9 @@
-import { Card } from "@/components/ui/card";
+import { AllLists } from "@/components/cards/AllLists";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { db } from "@/db";
 import { Context } from "@/worker";
 import { ListForm } from "./List/ListForm";
+
 
 export async function Home({ ctx }: { ctx: Context }) {
   type List = {
@@ -9,56 +11,64 @@ export async function Home({ ctx }: { ctx: Context }) {
     name: string;
   };
 
-  const allLists = await db.list.findMany() ?? [] as List[];
+  const allLists = await db.list.findMany({
+    take: 10,
+    orderBy: {
+      createdAt: 'desc'
+    }
+  }) as List[];
 
   // Get lists based on whether user is logged in
   const userLists = await db.list.findMany(
     ctx.user ? { where: { ownerId: ctx.user.id } } : undefined
   ) as List[];
 
-  return (
-    <div>
-      <div className="p-4">
-        <div className="flex flex-col items-center">
-          {allLists.length > 0 ? (
-            allLists.map((list) => (
-              <Card key={list.id} className="p-4 w-full md:w-[500px] mb-4 border-0 shadow-sm">
-                <a href={`/list/${list.id}`}>{list.name}</a>
-              </Card>
-            ))
-          ) : (
-            <Card className="p-4 w-full md:w-[500px] mb-4 border-0 shadow-sm text-center">
-              No lists available yet.
-            </Card>
-          )}
+
+
+  // if there is a user, return the user lists in a card, the new list form in a card and a link to browse lists
+  if (ctx.user) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid lg:grid-cols-2 gap-6">
+          <Card className="h-full border-muted shadow-sm">
+            <CardHeader className="space-y-1">
+              <CardTitle className="text-2xl text-muted-foreground">Your Lists</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <ListForm userId={ctx.user.id} />
+              {userLists.length > 0 ? (
+                <ul>
+                  {userLists.map((list) => (
+                    <li key={list.id}>
+                      <a href={`/list/${list.id}`}>{list.name}</a>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-muted-foreground">You haven't created any lists yet.</p>
+              )}
+            </CardContent>
+          </Card>
+
+          <AllLists lists={allLists} title="Top 10" />
         </div>
       </div>
+    );
+  }
 
-      {ctx.user && (
-        <div className="p-4">
-          <div className="flex justify-center w-full mt-4">
-            <Card className="p-4 w-full md:w-[500px] border-0">
-              <ListForm userId={ctx.user.id} />
-            </Card>
-          </div>
+  // if there is no user, return a card with all the lists and a card saying login / create account to make and save lists
+  return (
+    <div className="flex justify-center items-center min-h-screen p-4">
+      <AllLists lists={allLists} title="Top 10" />
+      <Card className="w-full max-w-md shadow-sm border-muted">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl text-muted-foreground">Create an Account</CardTitle>
+        </CardHeader>
 
-          <h2 className="text-lg font-semibold text-center mt-6 mb-4">Your Lists</h2>
-
-          <div className="flex flex-col items-center">
-            {userLists.length > 0 ? (
-              userLists.map((list) => (
-                <Card key={list.id} className="p-4 w-full md:w-[500px] mb-4 border-0 shadow-sm">
-                  <a href={`/list/${list.id}`}>{list.name}</a>
-                </Card>
-              ))
-            ) : (
-              <Card className="p-4 w-full md:w-[500px] mb-4 border-0 shadow-sm text-center">
-                You don't have any lists yet.
-              </Card>
-            )}
-          </div>
-        </div>
-      )}
+        <CardContent>
+          <p className="text-muted-foreground">Login or create an account to make and save lists.</p>
+        </CardContent>
+      </Card>
     </div>
   );
 }

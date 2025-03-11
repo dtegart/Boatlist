@@ -1,12 +1,13 @@
-import { defineApp } from "redwoodsdk/worker";
-import { index, layout, prefix } from "redwoodsdk/router";
 import { Document } from "@/app/Document";
 import { Home } from "@/app/pages/Home";
 import { authRoutes } from "@/app/pages/auth/routes";
-import { sessions, setupSessionStore } from "./session/store";
-import { Session } from "./session/durableObject";
-import { db, setupDb } from "./db";
 import { User } from "@prisma/client";
+import { index, layout, prefix } from "redwoodsdk/router";
+import { defineApp } from "redwoodsdk/worker";
+import { listRoutes } from "./app/pages/List/routes";
+import { db, setupDb } from "./db";
+import { Session } from "./session/durableObject";
+import { sessions, setupSessionStore } from "./session/store";
 export { SessionDurableObject } from "./session/durableObject";
 
 export type Context = {
@@ -40,6 +41,7 @@ export default defineApp<Context>([
       },
       Home,
     ]),
+    prefix("/list", listRoutes),
     prefix("/user", authRoutes),
   ]),
 ]);
