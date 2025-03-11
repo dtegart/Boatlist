@@ -7,35 +7,31 @@ export const Header = ({ ctx }: { ctx: Context }) => {
     const user = ctx.user;
     return (
         <header className="flex items-center justify-between px-6 py-4 bg-white shadow-sm">
-            <a href="/" className="flex items-center gap-2">
-                <Logo />
-                <h1 className="text-xl font-bold">Boat Lists</h1>
-            </a>
+            <div className="text-sea-medium">
+
+                <a href="/" className="flex items-center gap-2">
+                    <Logo />
+                    <h1 className="text-xl font-bold">Boat Lists</h1>
+                </a>
+            </div>
 
             <nav>
                 {user ? (
-
                     <Button asChild >
 
                         <a
                             href="user/logout"
-
                         >
                             Logout
                         </a>
                     </Button>
-
                 ) : (
-
                     <Button asChild >
-
                         <a
                             href="user/login"
-
                         >
                             Login
                         </a>
-
                     </Button>
                 )}
             </nav>
