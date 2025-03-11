@@ -35,6 +35,7 @@ export function LoginPage() {
       } else {
         setResult("Login successful!");
         setIsSuccess(true);
+        window.location.href = "/";
       }
     } catch (error) {
       setResult("An error occurred during login");
@@ -90,9 +91,26 @@ export function LoginPage() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <Button
+              onClick={handlePerformPasskeyRegister}
+              disabled={isPending || !username.trim()}
+              className="w-full"
+              variant="outline"
+            >
+              {isPending ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Please wait
+                </>
+              ) : (
+                <>
+                  <UserPlus className="mr-2 h-4 w-4" /> Register
+                </>
+              )}
+            </Button>
+            <Button
               onClick={handlePerformPasskeyLogin}
               disabled={isPending || !username.trim()}
-              variant="outline"
+              variant="default"
               className="w-full"
             >
               {isPending ? (
@@ -103,22 +121,6 @@ export function LoginPage() {
               ) : (
                 <>
                   <KeyRound className="mr-2 h-4 w-4" /> Login
-                </>
-              )}
-            </Button>
-            <Button
-              onClick={handlePerformPasskeyRegister}
-              disabled={isPending || !username.trim()}
-              className="w-full"
-            >
-              {isPending ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Please wait
-                </>
-              ) : (
-                <>
-                  <UserPlus className="mr-2 h-4 w-4" /> Register
                 </>
               )}
             </Button>

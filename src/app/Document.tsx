@@ -1,7 +1,7 @@
 import stylesUrl from "./styles.css?url";
 
 export const Document: React.FC<{ children: React.ReactNode }> = ({
-  children,
+  children
 }) => (
   <html lang="en">
     <head>
@@ -12,7 +12,10 @@ export const Document: React.FC<{ children: React.ReactNode }> = ({
       <script type="module" src="/src/client.tsx"></script>
     </head>
     <body>
-      <div id="root">{children}</div>
+      <div id="root">
+
+        {children}
+      </div>
     </body>
   </html>
 );
