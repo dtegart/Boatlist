@@ -43,7 +43,9 @@ export async function Home({ ctx }: { ctx: Context }) {
                   <ul>
                     {userLists.map((list) => (
                       <li key={list.id}>
-                        <a href={`/list/${list.id}`}>{list.name}</a>
+                        <a href={`/list/${list.id}`}
+                          className="block p-2 border-1 border-sea-light rounded-md text-muted-foreground bg-sail hover:bg-muted transition-colors duration-200"
+                        >{list.name}</a>
                       </li>
                     ))}
                   </ul>
@@ -53,7 +55,17 @@ export async function Home({ ctx }: { ctx: Context }) {
               </CardContent>
             </Card>
 
-            <AllLists lists={allLists} title="Top 10" />
+            <Card className="h-full border-muted shadow-sm">
+              <CardHeader className="space-y-1 flex justify-between ">
+                <div className="flex w-full justify-between items-center">
+                  <CardTitle className="text-2xl text-muted-foreground">Top Lists</CardTitle>
+                  <a href="list/lists" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200">
+                    See All →
+                  </a>
+                </div>
+              </CardHeader>
+              <AllLists lists={allLists} emptyMessage="No Lists Available" />
+            </Card>
           </div>
         </div>
       </>
@@ -65,7 +77,17 @@ export async function Home({ ctx }: { ctx: Context }) {
     <>
       <Header ctx={ctx} />
       <div className="flex justify-center items-center min-h-screen p-4">
-        <AllLists lists={allLists} title="Top 10" />
+        <Card className="h-full border-muted shadow-sm">
+          <CardHeader className="space-y-1 flex justify-between items-center">
+            <div className="flex w-full justify-between items-center">
+              <CardTitle className="text-2xl text-muted-foreground">Top Lists</CardTitle>
+              <a href="list/lists" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200">
+                See All →
+              </a>
+            </div>
+          </CardHeader>
+          <AllLists lists={allLists} emptyMessage="No Lists Available" />
+        </Card>
         <Card className="w-full max-w-md shadow-sm border-muted">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl text-muted-foreground">Create an Account</CardTitle>
