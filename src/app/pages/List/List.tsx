@@ -48,9 +48,9 @@ export async function List({ params, ctx }: RouteContext<{ id: string }> & { ctx
 
             <CardContent className="p-6">
               {list.items.length > 0 ? (
-                <ul className="space-y-3 mb-6">
+                <ul className="space-y-3 ">
                   {list.items.map((item: ListItem) => (
-                    <li key={item.id} className=" pb-3 last:border-0">
+                    <li key={item.id} className="last:border-0 bg-gray-50  rounded-md">
                       <Item id={item.id} description={item.description} />
                     </li>
                   ))}

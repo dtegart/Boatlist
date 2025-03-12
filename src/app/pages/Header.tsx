@@ -20,7 +20,7 @@ export const Header = ({ ctx }: { ctx: Context }) => {
                     <Button asChild >
 
                         <a
-                            href="user/logout"
+                            href='/user/logout'
                         >
                             Logout
                         </a>
@@ -28,7 +28,7 @@ export const Header = ({ ctx }: { ctx: Context }) => {
                 ) : (
                     <Button asChild >
                         <a
-                            href="user/login"
+                            href='/user/login'
                         >
                             Login
                         </a>

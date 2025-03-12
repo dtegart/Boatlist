@@ -13,18 +13,23 @@ export function ItemForm(props: ItemFormProps) {
   const [newItem, setNewItem] = React.useState('')
   const { listId } = props
   const handleSubmit = async () => {
+    if (!newItem.trim()) return
     await createItem(listId, newItem)
     setNewItem('')
   }
+
   return (
-    <div className="flex w-full max-w-sm items-center space-x-2">
+    <form onSubmit={(e) => {
+      e.preventDefault()
+      handleSubmit()
+    }} className="flex w-full items-center space-x-2">
       <Input
         type='text'
         placeholder='Add an item'
         onChange={(e) => setNewItem(e.target.value)}
-
+        value={newItem}
       />
-      <Button variant='default' onClick={handleSubmit}>Add</Button>
-    </div>
+      <Button type="submit" variant='default'>Add</Button>
+    </form>
   )
 }
