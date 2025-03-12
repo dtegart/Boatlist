@@ -8,12 +8,8 @@ function isAuthenticated({ ctx }: { ctx: Context }) {
   if (!ctx.user) {
     return new Response(null, {
       status: 302,
-      headers: { Location: link("/login") },
+      headers: { Location: link("user/login") },
     });
   }
 }
-export const listRoutes = [
-  route("/lists", [isAuthenticated, Lists]),
-
-  route("/:id", [isAuthenticated, List]),
-];
+export const listRoutes = [route("/lists", [Lists]), route("/:id", [List])];

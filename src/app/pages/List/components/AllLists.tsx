@@ -15,7 +15,7 @@ export function AllLists({ lists, emptyMessage, userId }: {
     emptyMessage: string,
     userId?: string
 }) {
-    console.log(lists[0].savedBy);
+
     return (
         <CardContent>
             {lists.length > 0 ? (

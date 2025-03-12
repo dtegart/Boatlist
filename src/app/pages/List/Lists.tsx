@@ -33,7 +33,8 @@ export async function Lists({ ctx }: { ctx: Context }) {
     return (
         <>
             <Header ctx={ctx} />
-            <div className="container mx-auto px-4 py-8 flex justify-center">
+            <div className="container mx-auto px-4 py-8 flex flex-col gap-8 items-center">
+
                 <Card className="h-full w-full lg:max-w-md border-muted shadow-sm">
                     <CardHeader className="space-y-1 flex justify-between ">
                         <div className="flex w-full justify-between items-center">
