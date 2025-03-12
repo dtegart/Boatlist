@@ -7,6 +7,7 @@ type List = {
     _count?: {
         savedBy: number;
     };
+    savedBy: { id: string }[];
 };
 
 export function AllLists({ lists, emptyMessage, userId }: {
@@ -14,7 +15,7 @@ export function AllLists({ lists, emptyMessage, userId }: {
     emptyMessage: string,
     userId?: string
 }) {
-
+    console.log(lists[0].savedBy);
     return (
         <CardContent>
             {lists.length > 0 ? (
@@ -25,7 +26,12 @@ export function AllLists({ lists, emptyMessage, userId }: {
                                 <a href={`/list/${list.id}`}>
                                     {list.name}
                                 </a>
-                                <SavedButton savedCount={list._count?.savedBy ?? 0} listId={list.id} userId={userId || ''} />
+                                <SavedButton
+                                    savedCount={list._count?.savedBy ?? 0}
+                                    listId={list.id}
+                                    userId={userId || ''}
+                                    isSaved={list.savedBy.length > 0}
+                                />
                             </div>
                         </li>
                     ))}

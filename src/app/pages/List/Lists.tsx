@@ -6,6 +6,7 @@ import { Header } from "../Header";
 
 export async function Lists({ ctx }: { ctx: Context }) {
     const user = ctx.user;
+
     const lists = await db.list.findMany({
         orderBy: {
             savedBy: {
@@ -16,6 +17,14 @@ export async function Lists({ ctx }: { ctx: Context }) {
             _count: {
                 select: {
                     savedBy: true
+                }
+            },
+            savedBy: {
+                where: {
+                    userId: user?.id
+                },
+                select: {
+                    id: true
                 }
             }
         }
