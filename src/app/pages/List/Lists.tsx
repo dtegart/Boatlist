@@ -1,4 +1,4 @@
-import { AllLists } from "@/components/cards/AllLists";
+import { AllLists } from "@/components/SharedList/AllLists";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { db } from "@/db";
 import { Context } from "@/worker";
@@ -7,7 +7,18 @@ import { Header } from "../Header";
 export async function Lists({ ctx }: { ctx: Context }) {
     const user = ctx.user;
     const lists = await db.list.findMany({
-
+        orderBy: {
+            savedBy: {
+                _count: 'desc'
+            }
+        },
+        include: {
+            _count: {
+                select: {
+                    savedBy: true
+                }
+            }
+        }
     });
 
     return (
@@ -20,7 +31,11 @@ export async function Lists({ ctx }: { ctx: Context }) {
                             <CardTitle className="text-2xl text-muted-foreground">Top Lists</CardTitle>
                         </div>
                     </CardHeader>
-                    <AllLists lists={lists} emptyMessage="No Lists Available" />
+                    <AllLists
+                        lists={lists}
+                        emptyMessage="No Lists Available"
+                        userId={user?.id}
+                    />
                 </Card>
             </div>
         </>

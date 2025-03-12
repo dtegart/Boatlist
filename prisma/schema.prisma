@@ -23,6 +23,7 @@ model User {
 
   credentials Credential[] // Relationship: One user can have many credentials
   lists       List[]      // Relationship: One user can own many lists
+  savedLists  SavedList[] // Lists saved by the user
 }
 
 model Credential {
@@ -44,9 +45,9 @@ model List {
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
   items     Item[]
-  ownerId    String    // Foreign key to User
-  onwer      User      @relation(fields: [ownerId], references: [id])
-
+  ownerId   String    // Foreign key to User
+  owner     User      @relation(fields: [ownerId], references: [id])
+  savedBy   SavedList[] // Users who saved this list
 }
 
 model Item {
@@ -56,4 +57,17 @@ model Item {
   list      List      @relation(fields: [listId], references: [id])
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
+}
+
+model SavedList {
+  id        String   @id @default(uuid())
+  userId    String
+  listId    String
+  savedAt   DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  list      List     @relation(fields: [listId], references: [id])
+
+  @@unique([userId, listId])
+  @@index([userId])
+  @@index([listId])
 }

@@ -1,5 +1,5 @@
 import { Header } from "@/app/pages/Header";
-import { AllLists } from "@/components/cards/AllLists";
+import { AllLists } from "@/components/SharedList/AllLists";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { db } from "@/db";
 import { Context } from "@/worker";

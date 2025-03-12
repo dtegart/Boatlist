@@ -47,3 +47,29 @@ export async function deleteList(id: string) {
 
   return deletedList;
 }
+
+export async function saveList(id: string, userId: string) {
+  // Check if the user has already saved the list
+  const savedList = await db.savedList.findFirst({
+    where: {
+      listId: id,
+      userId,
+    },
+  });
+  //if the user has already saved the list, remove it from the saved list
+  if (savedList) {
+    await db.savedList.delete({
+      where: {
+        id: savedList.id,
+      },
+    });
+  } else {
+    // Otherwise, save the list
+    await db.savedList.create({
+      data: {
+        listId: id,
+        userId,
+      },
+    });
+  }
+}
