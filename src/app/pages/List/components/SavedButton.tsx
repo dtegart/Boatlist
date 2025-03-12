@@ -1,10 +1,11 @@
 "use client"
 
-import { saveList } from "@/app/pages/List/functions";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
+import { saveList } from "../functions";
 
-export function SavedButton({ listId, userId }: { listId: string; userId: string }) {
+export function SavedButton({ listId, userId, savedCount }: { listId: string; userId: string, savedCount: number }) {
+
     return (
         <Button
             variant="ghost"
@@ -17,7 +18,7 @@ export function SavedButton({ listId, userId }: { listId: string; userId: string
             title={!userId ? "Sign in to save lists" : "Save this list"}
         >
             <Heart className="h-4 w-4" />
-            <span className="ml-1">{0}</span>
+            <span className="ml-1">{savedCount}</span>
         </Button>
     );
 }

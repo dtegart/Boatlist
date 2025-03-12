@@ -1,5 +1,6 @@
 "use client";
 
+import { link } from '@/app/shared/links';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,8 +14,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
-import { link } from '../../shared/links';
-import { deleteList } from "./functions";
+import { deleteList } from "../functions";
 
 interface DeleteListProps {
   id: string

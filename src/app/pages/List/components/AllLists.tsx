@@ -14,6 +14,7 @@ export function AllLists({ lists, emptyMessage, userId }: {
     emptyMessage: string,
     userId?: string
 }) {
+
     return (
         <CardContent>
             {lists.length > 0 ? (
@@ -24,7 +25,7 @@ export function AllLists({ lists, emptyMessage, userId }: {
                                 <a href={`/list/${list.id}`}>
                                     {list.name}
                                 </a>
-                                <SavedButton listId={list.id} userId={userId || ''} />
+                                <SavedButton savedCount={list._count?.savedBy ?? 0} listId={list.id} userId={userId || ''} />
                             </div>
                         </li>
                     ))}

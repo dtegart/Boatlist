@@ -2,9 +2,9 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { db } from "@/db";
 
 import { RouteContext } from "redwoodsdk/router";
-import { DeleteList } from "./DeleteList";
-import { Item } from "./Item";
-import { ItemForm } from "./ItemForm";
+import { DeleteList } from "./components/DeleteList";
+import { Item } from "./components/Item";
+import { ItemForm } from "./components/ItemForm";
 
 interface ListItem {
   id: string;

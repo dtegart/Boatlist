@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import React from "react";
-import { deleteItem } from "./functions";
+import { deleteItem } from "../functions";
 
 interface ItemProps {
   id: string

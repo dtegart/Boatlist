@@ -56,6 +56,7 @@ export async function saveList(id: string, userId: string) {
       userId,
     },
   });
+
   //if the user has already saved the list, remove it from the saved list
   if (savedList) {
     await db.savedList.delete({

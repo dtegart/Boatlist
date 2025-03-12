@@ -3,7 +3,7 @@ import { AllLists } from "@/app/pages/List/components/AllLists";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { db } from "@/db";
 import { Context } from "@/worker";
-import { ListForm } from "./List/ListForm";
+import { ListForm } from "./List/components/ListForm";
 
 
 export async function Home({ ctx }: { ctx: Context }) {

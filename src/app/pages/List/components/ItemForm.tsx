@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import React from "react";
-import { createItem } from "./functions";
+import { createItem } from "../functions";
 
 interface ItemFormProps {
   listId: string
