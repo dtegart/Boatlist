@@ -1,7 +1,7 @@
 import { CardContent } from "@/components/ui/card";
 import { SavedButton } from "./SavedButton";
 
-type List = {
+export type ListType = {
     id: string;
     name: string;
     _count?: {
@@ -11,7 +11,7 @@ type List = {
 };
 
 export function AllLists({ lists, emptyMessage, userId }: {
-    lists: List[],
+    lists: ListType[],
     emptyMessage: string,
     userId?: string
 }) {
@@ -30,7 +30,7 @@ export function AllLists({ lists, emptyMessage, userId }: {
                                     savedCount={list._count?.savedBy ?? 0}
                                     listId={list.id}
                                     userId={userId || ''}
-                                    isSaved={list.savedBy.length > 0}
+                                    isSaved={list.savedBy.some((user) => user.id === userId)}
                                 />
                             </div>
                         </li>

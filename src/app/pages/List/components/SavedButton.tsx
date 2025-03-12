@@ -10,7 +10,7 @@ export function SavedButton({ listId, userId, savedCount, isSaved }: {
     savedCount: number;
     isSaved: boolean;
 }) {
-    console.log(isSaved);
+
     return (
         <Button
             variant="ghost"
@@ -18,14 +18,14 @@ export function SavedButton({ listId, userId, savedCount, isSaved }: {
             onClick={async () => {
                 await saveList(listId, userId);
             }}
-            className="ml-2 hover:bg-sea-medium"
+            className="ml-2 hover:bg-sea-medium text-sea-dark"
             disabled={!userId}
             title={!userId ? "Sign in to save lists" : "Save this list"}
         >
             {isSaved ? (
-                <Heart fill="red" className="h-4 w-4 text-red-500" />
+                <Heart fill="red" className="h-4 w-4 " />
             ) : (
-                <Heart className="h-4 w-4" />
+                <Heart className="h-4 w-4 text-sea-dark" />
             )}
             <span className="ml-1">{savedCount}</span>
         </Button>

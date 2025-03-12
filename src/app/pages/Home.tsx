@@ -7,22 +7,35 @@ import { ListForm } from "./List/components/ListForm";
 
 
 export async function Home({ ctx }: { ctx: Context }) {
-  type List = {
-    id: string;
-    name: string;
-  };
 
+  console.log(ctx.user?.id)
   const allLists = await db.list.findMany({
-    take: 10,
     orderBy: {
-      createdAt: 'desc'
+      savedBy: {
+        _count: 'desc'
+      }
+    },
+    include: {
+      _count: {
+        select: {
+          savedBy: true
+        }
+      },
+      savedBy: {
+        where: {
+          userId: ctx.user?.id
+        },
+        select: {
+          id: true
+        }
+      }
     }
-  }) as List[];
+  });
 
   // Get lists based on whether user is logged in
   const userLists = await db.list.findMany(
     ctx.user ? { where: { ownerId: ctx.user.id } } : undefined
-  ) as List[];
+  )
 
 
 
@@ -76,27 +89,34 @@ export async function Home({ ctx }: { ctx: Context }) {
   return (
     <>
       <Header ctx={ctx} />
-      <div className="flex justify-center items-center min-h-screen p-4">
-        <Card className="h-full border-muted shadow-sm">
-          <CardHeader className="space-y-1 flex justify-between items-center">
-            <div className="flex w-full justify-between items-center">
-              <CardTitle className="text-2xl text-muted-foreground">Top Lists</CardTitle>
-              <a href="list/lists" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200">
-                See All →
-              </a>
-            </div>
-          </CardHeader>
-          <AllLists lists={allLists} emptyMessage="No Lists Available" />
-        </Card>
-        <Card className="w-full max-w-md shadow-sm border-muted">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl text-muted-foreground">Create an Account</CardTitle>
-          </CardHeader>
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid lg:grid-cols-2 gap-6">
+          <Card className="h-full border-muted shadow-sm">
+            <CardHeader className="space-y-1 flex justify-between items-center">
+              <div className="flex w-full justify-between items-center">
+                <CardTitle className="text-2xl text-muted-foreground">Top Lists</CardTitle>
+                <a href="list/lists" className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200">
+                  See All →
+                </a>
+              </div>
+            </CardHeader>
+            <AllLists lists={allLists} emptyMessage="No Lists Available" />
+          </Card>
+          <Card className="w-full max-w-md shadow-sm border-muted">
+            <CardHeader className="space-y-1">
+              <CardTitle className="text-2xl text-muted-foreground">Create an Account</CardTitle>
+            </CardHeader>
 
-          <CardContent>
-            <p className="text-muted-foreground">Login or create an account to make and save lists.</p>
-          </CardContent>
-        </Card>
+            <CardContent>
+              <p className="text-muted-foreground">
+                <a href="/user/login" className="text-primary transition-colors duration-200">
+                  Login or create an account
+                </a>
+                {" "}to make and save lists.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </>
   );

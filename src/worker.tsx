@@ -31,14 +31,14 @@ export default defineApp<Context>([
   },
   layout(Document, [
     index([
-      ({ ctx }) => {
+      /* ({ ctx }) => {
         if (!ctx.user) {
           return new Response(null, {
             status: 302,
             headers: { Location: "/user/login" },
           });
         }
-      },
+      }, */
       Home,
     ]),
     prefix("/list", listRoutes),
