@@ -1,4 +1,4 @@
-import { AllLists } from "@/components/SharedList/AllLists";
+import { AllLists } from "@/app/pages/List/components/AllLists";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { db } from "@/db";
 import { Context } from "@/worker";
