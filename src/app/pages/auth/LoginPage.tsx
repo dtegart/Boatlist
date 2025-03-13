@@ -86,7 +86,9 @@ export function LoginPage({ ctx }: { ctx: Context }) {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
+
                 <Input
+                  id="username"
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
