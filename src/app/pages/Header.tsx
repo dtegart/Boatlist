@@ -15,23 +15,17 @@ export const Header = ({ ctx }: { ctx: Context }) => {
                 </a>
             </div>
 
-            <nav>
+            <nav className="flex gap-4 items-center">
+                <a href="/list/lists" className="text-sea-medium hover:text-sea-dark">
+                    Browse Lists
+                </a>
                 {user ? (
-                    <Button asChild >
-
-                        <a
-                            href='/user/logout'
-                        >
-                            Logout
-                        </a>
+                    <Button asChild>
+                        <a href='/user/logout'>Logout</a>
                     </Button>
                 ) : (
-                    <Button asChild >
-                        <a
-                            href='/user/login'
-                        >
-                            Login
-                        </a>
+                    <Button asChild>
+                        <a href='/user/login'>Login</a>
                     </Button>
                 )}
             </nav>
