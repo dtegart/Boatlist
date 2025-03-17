@@ -59,7 +59,8 @@ export function LoginPage({ ctx }: { ctx: Context }) {
         setIsSuccess(true);
       }
     } catch (error) {
-      setResult("An error occurred during registration");
+      setResult(error.message);
+      console.error(error);
       setIsSuccess(false);
     }
   };
@@ -136,7 +137,7 @@ export function LoginPage({ ctx }: { ctx: Context }) {
             {result && (
               <CardFooter>
                 <Alert variant={isSuccess ? "default" : "destructive"} className="w-full">
-                  <AlertDescription>{result}</AlertDescription>
+                  <AlertDescription className="text-compass">{result}</AlertDescription>
                 </Alert>
               </CardFooter>
             )}
