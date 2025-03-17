@@ -13,6 +13,7 @@ export { SessionDurableObject } from "./session/durableObject";
 export type Context = {
   session: Session | null;
   user: User | null;
+
 };
 
 export default defineApp<Context>([
