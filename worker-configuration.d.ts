@@ -2,7 +2,7 @@
 
 interface Env {
 	APP_NAME: "boatlists";
-	RP_ID: "localhost";
+	RP_ID: "boatlists.dtegart78.workers.dev";
 	SECRET_KEY: string;
 	SESSION_DURABLE_OBJECT: DurableObjectNamespace<import("./src/worker").SessionDurableObject>;
 	DB: D1Database;

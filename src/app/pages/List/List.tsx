@@ -51,7 +51,7 @@ export async function List({ params, ctx }: RouteContext<{ id: string }> & { ctx
                 <ul className="space-y-3 ">
                   {list.items.map((item: ListItem) => (
 
-                    <Item id={item.id} description={item.description} />
+                    <Item key={item.id} id={item.id} description={item.description} />
 
                   ))}
                 </ul>

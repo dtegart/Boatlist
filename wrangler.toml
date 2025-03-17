@@ -16,7 +16,7 @@ bindings = [
 [vars]
 SECRET_KEY = "asecret_"
 APP_NAME = "boatlists"
-RP_ID = "localhost"
+RP_ID = "boatlists.dtegart78.workers.dev"
 
 [[migrations]]
 tag = "v1"
