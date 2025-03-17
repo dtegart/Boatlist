@@ -17,7 +17,7 @@ export function AllLists({ lists, emptyMessage, userId }: {
 }) {
 
     return (
-        <CardContent>
+        <CardContent className="space-y-4">
             {lists.length > 0 ? (
                 <ul>
                     {lists.map((list) => (

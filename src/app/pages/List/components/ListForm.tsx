@@ -11,14 +11,15 @@ export function ListForm({ userId }: { userId: string }) {
 
   const handleSubmit = async (e?: React.FormEvent) => {
 
-    await createList(newList, userId)
+    const result = await createList(newList, userId)
+
     setNewList('')
   }
 
   return (
     <form onSubmit={(e) => {
       e.preventDefault
-      handleSubmit
+      handleSubmit(e)
     }} className="flex w-full items-center space-x-2">
       <Input
         type='text'

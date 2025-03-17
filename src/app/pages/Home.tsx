@@ -55,7 +55,7 @@ export async function Home({ ctx }: { ctx: Context }) {
                 {userLists.length > 0 ? (
                   <ul>
                     {userLists.map((list) => (
-                      <li key={list.id}>
+                      <li key={list.id} className="mb-2">
                         <a href={`/list/${list.id}`}
                           className="block p-2 border-1 border-sea-light rounded-md text-muted-foreground bg-sail hover:bg-muted transition-colors duration-200"
                         >{list.name}</a>
